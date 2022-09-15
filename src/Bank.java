@@ -8,7 +8,7 @@ public class Bank {
 
     //create a new bank object with empty list of users and accounts
     public Bank(String name){
-        this.name= name;
+        this.name = name;
         this.users = new ArrayList<User>();
         this.accounts = new ArrayList<Account>();
     }
@@ -107,5 +107,9 @@ public class Bank {
         }
         //if we haven't found any matching details
         return null;
+    }
+
+    public String getName(){
+        return this.name;
     }
 }

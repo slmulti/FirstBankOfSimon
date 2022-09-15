@@ -65,5 +65,33 @@ public class User {
 
     }
 
+    public String getFirstName(){
+        return this.firstName;
+    }
+
+    //print summarys of the acocunt of this user
+    public void printAccountSummary(){
+        System.out.printf("\n\n%s's account summary, this.firstName");
+        for(int a = 0; a <this.accounts.size(); a++){
+            System.out.printf("%d) %s\n", a+1, this.accounts.get(a).getSummaryLine());
+        }
+        System.out.println();
+    }
+
+
+    //works out the number of accounts customer has
+    public int numAccounts(){
+        return this.accounts.size();
+    }
+
+    public void printAcctTransHistory(int acctIdx){
+        this.accounts.get(acctIdx).printTransHistory();
+    }
+
+    //get a balance of particluar account
+    public double getAcctBalance(int accIdx){
+        return this.accounts.get(accIdx).getBalance();
+    }
+
 
 }
