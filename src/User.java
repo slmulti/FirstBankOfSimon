@@ -38,6 +38,32 @@ public class User {
         //print log message
         System.out.printf("New user %s, %s, with ID %s created", lastName, firstName, this.uuid);
     }
+    //encapsulation becasue using private array not public to restrict access
+    //this adds an account for the user
+    public void addAccount(Account anAcct){
+        this.accounts.add(anAcct);
+    }
+
+    //getter method
+    public String getUUID(){
+        return this.uuid;
+    }
+
+    //returns a boolean value of where or not the pin matches
+    public boolean validatePin(String aPin){
+
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            return MessageDigest.isEqual(md.digest(aPin.getBytes()),
+                    this.pinHash);
+        } catch (NoSuchAlgorithmException e) {
+            System.err.println("Error, caught NoSuchAlgorithmException");
+            e.printStackTrace();
+            System.exit(1);
+        }
+        return false;
+
+    }
 
 
 }
