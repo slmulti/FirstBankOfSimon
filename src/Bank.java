@@ -5,4 +5,8 @@ public class Bank {
     private ArrayList<User> user;
     private ArrayList<Account> accounts;
 
+
+    public String getNewUserUUID(){
+
+    }
 }
