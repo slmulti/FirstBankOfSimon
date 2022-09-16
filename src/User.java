@@ -36,7 +36,7 @@ public class User {
         this.accounts = new ArrayList<Account>();
 
         //print log message
-        System.out.printf("New user %s, %s, with ID %s created", lastName, firstName, this.uuid);
+        System.out.printf("New user %s, %s with ID %s created\n", lastName, firstName, this.uuid);
     }
     //encapsulation becasue using private array not public to restrict access
     //this adds an account for the user

@@ -10,12 +10,25 @@ public class ATM {
         Bank theBank = new Bank("First Bank of Simon");
 
         //add a user, which also creates a savings account
-        User aUser = theBank.addUser("John", "Doe", "1234");
+        User User1 = theBank.addUser("Elon", "Musk", "1234");
+        User User2 = theBank.addUser("Simon", "Love", "1234");
+        User User3 = theBank.addUser("Jeff", "Bezos", "1234");
+
+
 
         //add current account
-        Account newAccount = new Account("Current", aUser, theBank);
-        aUser.addAccount(newAccount);
-        theBank.addAccount(newAccount);
+        Account newAccount1 = new Account("Current", User1, theBank);
+        User1.addAccount(newAccount1);
+        theBank.addAccount(newAccount1);
+
+        Account newAccount2 = new Account("Current", User2, theBank);
+        User2.addAccount(newAccount2);
+        theBank.addAccount(newAccount2);
+
+        Account newAccount3 = new Account("Current", User3, theBank);
+        User3.addAccount(newAccount3);
+        theBank.addAccount(newAccount3);
+
 
 
         //get the ATM to enter an infinite loop
@@ -38,7 +51,7 @@ public class ATM {
 
         //prompt user for user id/pin
         do{
-            System.out.printf("\n\nWelcome to %s\n\n", theBank.getName());
+            System.out.printf("\n\n=======================================\n----Welcome to %s!----\n=======================================\n\n", theBank.getName());
             System.out.print("Enter user ID: ");
             userID = sc.nextLine();
             System.out.print("Enter pin: ");

@@ -18,7 +18,7 @@ public class Account {
         this.name = name;
         this.holder = holder;
 
-        //get ew account UUID
+        //get new account UUID
         this.uuid = theBank.getNewAccountUUID();
 
         //init trans
