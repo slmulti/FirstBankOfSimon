@@ -38,7 +38,7 @@ public class Transaction {
         if(this.amount >=0){
             return String.format("%s : £%.02f : %s", this.timestamp.toString(), this.amount, this.reference);
         }else{
-            return String.format("%s : £(%.02f) : %s", this.timestamp.toString(), this.amount, this.reference);
+            return String.format("%s : £%.02f : %s", this.timestamp.toString(), this.amount, this.reference);
         }
     }
 

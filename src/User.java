@@ -69,29 +69,41 @@ public class User {
         return this.firstName;
     }
 
-    //print summarys of the acocunt of this user
+    //print summary of the account of this user
     public void printAccountSummary(){
-        System.out.printf("\n\n%s's account summary, this.firstName");
+        System.out.println("************************************");
+        System.out.printf("%s's account summary,", this.firstName);
         for(int a = 0; a <this.accounts.size(); a++){
-            System.out.printf("%d) %s\n", a+1, this.accounts.get(a).getSummaryLine());
+            System.out.printf("\n %d) %s", a+1, this.accounts.get(a).getSummaryLine());
         }
-        System.out.println();
+        System.out.println("\n************************************");
     }
 
 
     //works out the number of accounts customer has
     public int numAccounts(){
+
         return this.accounts.size();
     }
 
     public void printAcctTransHistory(int acctIdx){
+
         this.accounts.get(acctIdx).printTransHistory();
     }
 
-    //get a balance of particluar account
-    public double getAcctBalance(int accIdx){
-        return this.accounts.get(accIdx).getBalance();
+    //get a balance of particular account
+    public double getAcctBalance(int acctIdx){
+
+        return this.accounts.get(acctIdx).getBalance();
     }
 
+    //get the UUID of a particular account
+    public String getAcctUUID(int acctIdx){
+        return this.accounts.get(acctIdx).getUUID();
+    }
+
+    public void addAcctTransaction(int acctIdx, double amount, String reference){
+        this.accounts.get(acctIdx).addTransaction(amount, reference);
+    }
 
 }

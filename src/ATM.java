@@ -9,7 +9,7 @@ public class ATM {
         //init Banks
         Bank theBank = new Bank("First Bank of Simon");
 
-        //add a user, which also creatd a savings account
+        //add a user, which also creates a savings account
         User aUser = theBank.addUser("John", "Doe", "1234");
 
         //add current account
@@ -18,10 +18,10 @@ public class ATM {
         theBank.addAccount(newAccount);
 
 
-        //get the ATM to enter an infite loop
+        //get the ATM to enter an infinite loop
         User curUser;
         while(true){
-            //stay in the log in screen until sucessful login
+            //stay in the log in screen until successful login
             curUser = ATM.mainMenuPrompt(theBank, sc);
 
             //stay in the main menu until user quits
@@ -31,17 +31,17 @@ public class ATM {
 
     public static User mainMenuPrompt(Bank theBank, Scanner sc){
 
-        //inits
+        //init
         String userID;
         String pin;
         User authUser;
 
         //prompt user for user id/pin
         do{
-            System.out.printf("\n\nWelcome to &s\n\n", theBank.getName());
+            System.out.printf("\n\nWelcome to %s\n\n", theBank.getName());
             System.out.print("Enter user ID: ");
             userID = sc.nextLine();
-            System.out.println("Enter pin: ");
+            System.out.print("Enter pin: ");
             pin = sc.nextLine();
 
             //try to get the user object corresponding to the id and pin combo
@@ -50,7 +50,7 @@ public class ATM {
             if (authUser==null){
                 System.out.println("Incorrect information entered." + "\nPlease try again.");
             }
-        } while(authUser==null); //continue looping unitl sucessful login
+        } while(authUser==null); //continue looping until successful login
 
         return authUser;
     }
@@ -65,20 +65,20 @@ public class ATM {
 
         //user menu
         do{
-            System.out.printf("Welcome %s, WHat would you like to do?", theUser.getFirstName());
+            System.out.printf("Welcome %s, What would you like to\ndo today?\n", theUser.getFirstName());
             System.out.println(" 1) Show Account Transaction History");
             System.out.println(" 2) Make a Withdrawal");
             System.out.println(" 3) Make a Deposit");
             System.out.println(" 4) Make a Transfer");
             System.out.println(" 5) Quit");
             System.out.println();
-            System.out.println("Enter Choice: ");
+            System.out.print("Enter Choice: ");
             choice = sc.nextInt();
 
-            if (choice <1 || choice >5){
+            if (choice < 1 || choice > 5){
                 System.out.println("Invalid choice. Please choose 1-5");
             }
-        } while (choice >1 || choice <5);
+        } while (choice < 1 || choice > 5);
             //process choice
             switch (choice){
                 case 1:
@@ -93,9 +93,12 @@ public class ATM {
                 case 4:
                     ATM.transferFunds(theUser, sc);
                     break;
+                case 5:
+                    //gobble up the rest of previous input line
+                    ATM.quit(sc);
+                    sc.nextLine();
+                    break;
             }
-
-
             //redisplay menu unless quit
             //simple recursive call
             if (choice != 5){
@@ -107,40 +110,152 @@ public class ATM {
 
             int theAcct;
 
-            //get accout history
+            //get account history
             do {
-                System.out.printf("Enter the number (1-%d) of the account whose transactions you wnat to see: ", theUser.numAccounts());
-                theAcct = sc.nextInt()-1; //zerobased indexing
-                if(theAcct<0||theAcct>theUser.numAccounts()){
+                System.out.printf("Enter the number (1-%d) of the account\nwhose transactions you want to see: ", theUser.numAccounts());
+                theAcct = sc.nextInt()-1; //zero-based indexing
+                if(theAcct<0||theAcct>=theUser.numAccounts()){
                     System.out.println("Invalid Selection. Please try again.");
                     }
-            } while (theAcct>0||theAcct<theUser.numAccounts());
+            } while (theAcct<0||theAcct>=theUser.numAccounts());
                 //print trans history
             theUser.printAcctTransHistory(theAcct);
 
             }
 
-        public static void transferFunds(User theUser, Scanner sc){
+            //complete transfer
+    public static void transferFunds(User theUser, Scanner sc) {
 
-            //inits
-            int fromAcct;
-            int toAcct;
-            double amount;
-            double acctBal;
+        int fromAcct;
+        int toAcct;
+        double amount;
+        double acctBal;
 
-            //get the account to transfer from
-            do {
-                System.out.printf("Enter the number (1-%d) of the account to transfer from: ");
-                fromAcct = sc.nextInt()-1;//zeroindex
-                if(fromAcct  <0 || fromAcct > theUser.numAccounts()){
-                    System.out.println("Invalid Selection. Please try again.");
-                }
-            } while (fromAcct  > 0 || fromAcct < theUser.numAccounts());
-            acctBal = theUser.getAcctBalance();
+        // get account to transfer from
+        do {
+            System.out.printf("Enter the number (1-%d) of the account to transfer from: ", theUser.numAccounts());
+            fromAcct = sc.nextInt()-1;
+            if (fromAcct < 0 || fromAcct >= theUser.numAccounts()) {
+                System.out.println("Invalid account. Please try again.");
+            }
+        } while (fromAcct < 0 || fromAcct >= theUser.numAccounts());
+        acctBal = theUser.getAcctBalance(fromAcct);
+
+        // get account to transfer to
+        do {
+            System.out.printf("Enter the number (1-%d) of the account to transfer to: ", theUser.numAccounts());
+            toAcct = sc.nextInt()-1;
+            if (toAcct < 0 || toAcct >= theUser.numAccounts()) {
+                System.out.println("Invalid account. Please try again.");
+            }
+        } while (toAcct < 0 || toAcct >= theUser.numAccounts());
+
+        // get amount to transfer
+        do {
+            System.out.printf("Enter the amount to transfer (max £%.02f): £",
+                    acctBal);
+            amount = sc.nextDouble();
+            if (amount < 0) {
+                System.out.println("Amount must be greater than zero.");
+            } else if (amount > acctBal) {
+                System.out.printf("Amount must not be greater than balance of £.02f.\n", acctBal);
+            }
+        } while (amount < 0 || amount > acctBal);
+
+        // finally, do the transfer
+        theUser.addAcctTransaction(fromAcct, -1*amount, String.format(
+                "Transfer to account %s", theUser.getAcctUUID(toAcct)));
+        theUser.addAcctTransaction(toAcct, amount, String.format(
+                "Transfer from account %s", theUser.getAcctUUID(fromAcct)));
+
+    }
+
+        //process a withdrawal on the account
+    public static void withdrawFunds(User theUser, Scanner sc) {
+        //init
+        int fromAcct;
+        double amount;
+        double acctBal;
+        String reference;
+
+        //get the account to transfer from
+        do {
+            System.out.printf("Enter the number (1-%d) of the account to withdraw from: ", theUser.numAccounts());
+            fromAcct = sc.nextInt()-1;//zero-index
+            if(fromAcct  < 0 || fromAcct >= theUser.numAccounts()){
+                System.out.println("Invalid Selection. Please try again.");
+            }
+        } while (fromAcct  < 0 || fromAcct >= theUser.numAccounts());
+        acctBal = theUser.getAcctBalance(fromAcct);
+
+        //get the amount to transfer
+        do {
+            System.out.printf("Enter the amount to withdraw (max: £%.02f: £", acctBal);
+            amount = sc.nextDouble();
+            if (amount < 0) {
+                System.out.println("Amount must be greater than zero");
+            } else if (amount > acctBal){
+                System.out.printf("Amount must not be greater than\nbalance of £.02f", acctBal);
+            }
+        } while (amount < 0 || amount > acctBal );
+
+        //gobble up the rest f previous input line
+        sc.nextLine();
+
+        //get reference
+        System.out.print("Enter a Reference: ");
+        reference = sc.nextLine();
+
+        //do the withdrawal
+        theUser.addAcctTransaction(fromAcct, -1*amount, reference);
+    }
+
+    public static void depositFunds(User theUser, Scanner sc){
+
+        //init
+        int toAcct;
+        double amount;
+        double acctBal;
+        String reference;
+
+        //get the account to transfer from
+        do {
+            System.out.printf("Enter the number (1-%d) of the account to deposit in: ", theUser.numAccounts());
+            toAcct = sc.nextInt()-1;//zero-index
+            if(toAcct  < 0 || toAcct > theUser.numAccounts()){
+                System.out.println("Invalid Selection. Please try again.");
+            }
+        } while (toAcct  < 0 || toAcct >= theUser.numAccounts());
+        acctBal = theUser.getAcctBalance(toAcct);
+
+        //get the amount to transfer
+        do {
+            System.out.printf("Enter the amount to deposit: £", acctBal);
+            amount = sc.nextDouble();
+            if (amount < 0) {
+                System.out.println("Amount must be greater than zero");
+            }
+        } while (amount < 0);
 
 
-        }
+        //gobble up the rest f previous input line
+        sc.nextLine();
 
+        //get reference
+        System.out.print("Enter a Reference: ");
+        reference = sc.nextLine();
+
+        //do the withdrawal
+        theUser.addAcctTransaction(toAcct, amount, reference);
+
+    }
+
+    public static void quit (Scanner sc){
+        System.out.println("Thank you for banking with us today!");
+        System.out.println("-------------Goodbye!---------------");
+        System.out.println("************************************");
+        System.out.println("************************************");
+    }
 
 }
 

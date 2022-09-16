@@ -24,9 +24,6 @@ public class Account {
         //init trans
         this.transactions = new ArrayList<Transaction>();
 
-
-
-
         }
     //getter
     public String getUUID(){
@@ -59,8 +56,15 @@ public class Account {
     public void printTransHistory(){
         System.out.printf("\nTransaction history for account %s\n", this.uuid);
         for(int t = this.transactions.size()-1; t>=0; t--){
-            System.out.printf(this.transactions.get(t).getSummaryLine());
+            System.out.println(this.transactions.get(t).getSummaryLine());
         }
         System.out.println();
+    }
+
+    //create new transaction object and add to list
+    public void addTransaction(double amount, String reference){
+
+        Transaction newTrans = new Transaction(amount, reference, this);
+        this.transactions.add(newTrans);
     }
 }
