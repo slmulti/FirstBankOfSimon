@@ -3,9 +3,8 @@ import java.util.ArrayList;
 public class Account {
     //type of account
     private String name;
-
     //accounts id
-    private String uuid;
+    private String accNum;
     //user object that owns account
     private User holder;
     //list of transactions
@@ -18,16 +17,16 @@ public class Account {
         this.name = name;
         this.holder = holder;
 
-        //get new account UUID
-        this.uuid = theBank.getNewAccountUUID();
+        //get new account accNum
+        this.accNum = theBank.getNewAccountAccNum();
 
         //init trans
         this.transactions = new ArrayList<Transaction>();
 
         }
     //getter
-    public String getUUID(){
-        return this.uuid;
+    public String getAccNum(){
+        return this.accNum;
     }
 
     //getting the summary line
@@ -38,9 +37,9 @@ public class Account {
 
         //format the summary line, depending on whether the balance is negative
         if (balance >= 0){
-            return String.format("%s : £%.02f : %s", this.uuid, balance, this.name);
+            return String.format("%s : £%.02f : %s", this.accNum, balance, this.name);
         } else {
-            return String.format("%s : £(%.02f) : %s", this.uuid, balance, this.name);
+            return String.format("%s : £(%.02f) : %s", this.accNum, balance, this.name);
         }
     }
 
@@ -54,11 +53,11 @@ public class Account {
 
     //Print transaction history of account
     public void printTransHistory(){
-        System.out.printf("\nTransaction history for account %s\n", this.uuid);
+        System.out.printf("\nTransaction history for account %s\n", this.accNum);
         for(int t = this.transactions.size()-1; t>=0; t--){
             System.out.println(this.transactions.get(t).getSummaryLine());
         }
-        System.out.println();
+
     }
 
     //create new transaction object and add to list

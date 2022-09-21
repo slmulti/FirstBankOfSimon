@@ -14,61 +14,68 @@ public class Bank {
     }
 
     //create an unique id and check it doesnt exist already
-    public String getNewUserUUID(){
+    public String getNewUserCardNum(){
         //inits
-        String uuid;
+        String cardStart;
+        String cardNum;
+        String zero;
         Random rng = new Random();
-        int len = 16;
+        int len = 10;
         boolean nonUnique;
 
         do {
             //generate num
-            uuid = "";
+            cardStart= "4929";
+            cardNum = "";
+//            zero = "00";
             for (int c=0; c<len; c++){
-                uuid += ((Integer)rng.nextInt(10)).toString(); //picks a number between 0 and 9 sixteen times
+                cardNum = cardNum + ((Integer)rng.nextInt(10)).toString(); //picks a number between 0 and 9 twelve times
             }
             //check to make sure its unique
             nonUnique = false;
             for(User u: this.users){
-                if (uuid.compareTo(u.getUUID()) == 0){
+                if (cardNum.compareTo(u.getCardNum()) == 0){
                     nonUnique = true;
                     break;
                 }
             }
 
 
-        } while(nonUnique);//keep looping while nonUnique is true ie uuid already exists
-
-        return uuid;
+        } while(nonUnique);//keep looping while nonUnique is true ie card number already exists
+//        String lastCardNum = cardNum.substring(cardNum.length()-1)+zero+cardNum.substring(cardNum.length()-1);
+        StringBuilder sb = new StringBuilder(cardNum);
+        zero = String.valueOf(sb.insert(cardNum.length()-1, "00"));
+        cardNum = cardStart + zero;
+        return cardNum;
 
     }
 
-    public String getNewAccountUUID(){
+    public String getNewAccountAccNum(){
         //inits
-        String uuid;
+        String accNum;
         Random rng = new Random();
         int len = 8;
         boolean nonUnique;
 
         do {
             //genrate num
-            uuid = "";
+            accNum = "";
             for (int c=0; c<len; c++){
-                uuid += ((Integer)rng.nextInt(10)).toString(); //picks a number between 0 and 9 ten times
+                accNum += ((Integer)rng.nextInt(10)).toString(); //picks a number between 0 and 9 eight times
             }
             //check to make sure its unique
             nonUnique = false;
             for(Account a: this.accounts){
-                if (uuid.compareTo(a.getUUID()) == 0){
+                if (accNum.compareTo(a.getAccNum()) == 0){
                     nonUnique = true;
                     break;
                 }
             }
 
 
-        } while(nonUnique);//keep looping while nonUnique is true ie uuid already exists
+        } while(nonUnique);//keep looping while nonUnique is true ie account number already exists
 
-        return uuid;
+        return accNum;
 
 
     }
@@ -96,12 +103,12 @@ public class Bank {
 
 
     //get user object ONLY if correct userID and pin used
-    public User userLogin(String userID, String pin){
+    public User userLogin(String cardNum, String pin){
         //search thorugh list of users
         for(User u:this.users){
 
             //check user id is correct
-            if(u.getUUID().compareTo(userID) == 0 && u.validatePin(pin)){
+            if(u.getCardNum().compareTo(cardNum) == 0 && u.validatePin(pin)){
                 return u;
             }
         }
@@ -113,3 +120,5 @@ public class Bank {
         return this.name;
     }
 }
+
+

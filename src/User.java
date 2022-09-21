@@ -7,7 +7,7 @@ public class User {
     private String firstName;
     private String lastName;
     //ID number for the user
-    private String uuid;
+    private String cardNum;
     //using MD5 hash to store the users pin
     private byte pinHash[];
     //List of accounts for this user
@@ -30,13 +30,13 @@ public class User {
         }
 
         //get a new unique universal id for user
-        this.uuid = theBank.getNewUserUUID();
+        this.cardNum = theBank.getNewUserCardNum();
 
         //create empty list of accounts
         this.accounts = new ArrayList<Account>();
 
         //print log message
-        System.out.printf("New user %s, %s with ID %s created\n", lastName, firstName, this.uuid);
+        System.out.printf("New user %s, %s with Card Number %s created\n", lastName, firstName, this.cardNum);
     }
     //encapsulation becasue using private array not public to restrict access
     //this adds an account for the user
@@ -45,8 +45,8 @@ public class User {
     }
 
     //getter method
-    public String getUUID(){
-        return this.uuid;
+    public String getCardNum(){
+        return this.cardNum;
     }
 
     //returns a boolean value of where or not the pin matches
@@ -98,9 +98,9 @@ public class User {
         return this.accounts.get(acctIdx).getBalance();
     }
 
-    //get the UUID of a particular account
-    public String getAcctUUID(int acctIdx){
-        return this.accounts.get(acctIdx).getUUID();
+    //get the account num of a particular account
+    public String getAcctNumber(int acctIdx){
+        return this.accounts.get(acctIdx).getAccNum();
     }
 
     public void addAcctTransaction(int acctIdx, double amount, String reference){

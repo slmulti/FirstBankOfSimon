@@ -10,9 +10,11 @@ public class ATM {
         Bank theBank = new Bank("First Bank of Simon");
 
         //add a user, which also creates a savings account
-        User User1 = theBank.addUser("Elon", "Musk", "1234");
-        User User2 = theBank.addUser("Simon", "Love", "1234");
-        User User3 = theBank.addUser("Jeff", "Bezos", "1234");
+        User User1 = theBank.addUser("Simon", "Love", "1234");
+        User User2 = theBank.addUser("Haami", "Nyangibo", "1234");
+        User User3 = theBank.addUser("Elon", "Musk", "1234");
+//        User User4 = theBank.addUser("Karl", "Longworth", "1234");
+//        User User5 = theBank.addUser("Jeff", "Bezos", "1234");
 
 
 
@@ -28,6 +30,14 @@ public class ATM {
         Account newAccount3 = new Account("Current", User3, theBank);
         User3.addAccount(newAccount3);
         theBank.addAccount(newAccount3);
+
+//        Account newAccount4 = new Account("Current", User4, theBank);
+//        User4.addAccount(newAccount4);
+//        theBank.addAccount(newAccount4);
+//
+//        Account newAccount5 = new Account("Current", User5, theBank);
+//        User5.addAccount(newAccount5);
+//        theBank.addAccount(newAccount5);
 
 
 
@@ -45,21 +55,21 @@ public class ATM {
     public static User mainMenuPrompt(Bank theBank, Scanner sc){
 
         //init
-        String userID;
+        String cardNum;
         String pin;
         User authUser;
 
         //prompt user for user id/pin
         do{
             System.out.printf("\n\n=======================================\n----Welcome to %s!----\n=======================================\n\n", theBank.getName());
-            System.out.print("Enter user ID: ");
-            userID = sc.nextLine();
+            System.out.print("Enter Card Number: ");
+            cardNum = sc.nextLine();
             System.out.print("Enter pin: ");
             pin = sc.nextLine();
 
             //try to get the user object corresponding to the id and pin combo
 
-            authUser = theBank.userLogin(userID, pin);
+            authUser = theBank.userLogin(cardNum, pin);
             if (authUser==null){
                 System.out.println("Incorrect information entered." + "\nPlease try again.");
             }
@@ -173,15 +183,15 @@ public class ATM {
             if (amount < 0) {
                 System.out.println("Amount must be greater than zero.");
             } else if (amount > acctBal) {
-                System.out.printf("Amount must not be greater than balance of £.02f.\n", acctBal);
+                System.out.printf("Amount must not be greater than balance of £%.02f.\n", acctBal);
             }
         } while (amount < 0 || amount > acctBal);
 
         // finally, do the transfer
         theUser.addAcctTransaction(fromAcct, -1*amount, String.format(
-                "Transfer to account %s", theUser.getAcctUUID(toAcct)));
+                "Transfer to account %s", theUser.getAcctNumber(toAcct)));
         theUser.addAcctTransaction(toAcct, amount, String.format(
-                "Transfer from account %s", theUser.getAcctUUID(fromAcct)));
+                "Transfer from account %s", theUser.getAcctNumber(fromAcct)));
 
     }
 
