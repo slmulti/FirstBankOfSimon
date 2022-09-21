@@ -78,6 +78,7 @@ public class ATM {
 
         //user menu
         do{
+            System.out.println("");
             System.out.printf("Welcome %s, What would you like to\ndo today?\n", theUser.getFirstName());
             System.out.println(" 1) Show Account Transaction History");
             System.out.println(" 2) Make a Withdrawal");
@@ -125,6 +126,7 @@ public class ATM {
 
             //get account history
             do {
+                System.out.println("");
                 System.out.printf("Enter the number (1-%d) of the account\nwhose transactions you want to see: ", theUser.numAccounts());
                 theAcct = sc.nextInt()-1; //zero-based indexing
                 if(theAcct<0||theAcct>=theUser.numAccounts()){
@@ -264,6 +266,7 @@ public class ATM {
     }
 
     public static void quit (Scanner sc){
+        System.out.println();
         System.out.println("Thank you for banking with us today!");
         System.out.println("-------------Goodbye!---------------");
         System.out.println("************************************");

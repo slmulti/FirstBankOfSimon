@@ -71,6 +71,7 @@ public class User {
 
     //print summary of the account of this user
     public void printAccountSummary(){
+        System.out.println("");
         System.out.println("************************************");
         System.out.printf("%s's account summary,", this.firstName);
         for(int a = 0; a <this.accounts.size(); a++){

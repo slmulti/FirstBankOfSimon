@@ -18,14 +18,14 @@ public class Bank {
         //inits
         String uuid;
         Random rng = new Random();
-        int len = 6;
+        int len = 16;
         boolean nonUnique;
 
         do {
             //generate num
             uuid = "";
             for (int c=0; c<len; c++){
-                uuid += ((Integer)rng.nextInt(10)).toString(); //picks a number between 0 and 9 six times
+                uuid += ((Integer)rng.nextInt(10)).toString(); //picks a number between 0 and 9 sixteen times
             }
             //check to make sure its unique
             nonUnique = false;
@@ -47,7 +47,7 @@ public class Bank {
         //inits
         String uuid;
         Random rng = new Random();
-        int len =10;
+        int len = 8;
         boolean nonUnique;
 
         do {
