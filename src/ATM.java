@@ -39,8 +39,6 @@ public class ATM {
 //        User5.addAccount(newAccount5);
 //        theBank.addAccount(newAccount5);
 
-
-
         //get the ATM to enter an infinite loop
         User curUser;
         while(true){
@@ -64,7 +62,7 @@ public class ATM {
             System.out.printf("\n\n=======================================\n----Welcome to %s!----\n=======================================\n\n", theBank.getName());
             System.out.print("Enter Card Number: ");
             cardNum = sc.nextLine();
-            System.out.print("Enter pin: ");
+            System.out.print("Enter Pin: ");
             pin = sc.nextLine();
 
             //try to get the user object corresponding to the id and pin combo

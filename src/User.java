@@ -38,7 +38,7 @@ public class User {
         //print log message
         System.out.printf("New user %s, %s with Card Number %s created\n", lastName, firstName, this.cardNum);
     }
-    //encapsulation becasue using private array not public to restrict access
+    //encapsulation because using private array not public to restrict access
     //this adds an account for the user
     public void addAccount(Account anAcct){
         this.accounts.add(anAcct);
@@ -83,18 +83,15 @@ public class User {
 
     //works out the number of accounts customer has
     public int numAccounts(){
-
         return this.accounts.size();
     }
 
     public void printAcctTransHistory(int acctIdx){
-
         this.accounts.get(acctIdx).printTransHistory();
     }
 
     //get a balance of particular account
     public double getAcctBalance(int acctIdx){
-
         return this.accounts.get(acctIdx).getBalance();
     }
 

@@ -13,7 +13,7 @@ public class Bank {
         this.accounts = new ArrayList<Account>();
     }
 
-    //create an unique id and check it doesnt exist already
+    //create a unique id and check it doesn't exist already
     public String getNewUserCardNum(){
         //inits
         String cardStart;
@@ -58,7 +58,7 @@ public class Bank {
         boolean nonUnique;
 
         do {
-            //genrate num
+            //generate num
             accNum = "";
             for (int c=0; c<len; c++){
                 accNum += ((Integer)rng.nextInt(10)).toString(); //picks a number between 0 and 9 eight times
@@ -82,6 +82,7 @@ public class Bank {
 
     //this adds an account for the bank
     public void addAccount(Account anAcct){
+
         this.accounts.add(anAcct);
     }
 
@@ -104,7 +105,7 @@ public class Bank {
 
     //get user object ONLY if correct userID and pin used
     public User userLogin(String cardNum, String pin){
-        //search thorugh list of users
+        //search through list of users
         for(User u:this.users){
 
             //check user id is correct
