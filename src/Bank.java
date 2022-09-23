@@ -18,7 +18,7 @@ public class Bank {
         //inits
         String cardStart;
         String cardNum;
-        String zero;
+        String zeros;
         Random rng = new Random();
         int len = 10;
         boolean nonUnique;
@@ -27,7 +27,6 @@ public class Bank {
             //generate num
             cardStart= "4929";
             cardNum = "";
-//            zero = "00";
             for (int c=0; c<len; c++){
                 cardNum = cardNum + ((Integer)rng.nextInt(10)).toString(); //picks a number between 0 and 9 twelve times
             }
@@ -42,10 +41,9 @@ public class Bank {
 
 
         } while(nonUnique);//keep looping while nonUnique is true ie card number already exists
-//        String lastCardNum = cardNum.substring(cardNum.length()-1)+zero+cardNum.substring(cardNum.length()-1);
         StringBuilder sb = new StringBuilder(cardNum);
-        zero = String.valueOf(sb.insert(cardNum.length()-1, "00"));
-        cardNum = cardStart + zero;
+        zeros = String.valueOf(sb.insert(cardNum.length()-1, "00"));
+        cardNum = cardStart + zeros;
         return cardNum;
 
     }
@@ -71,13 +69,9 @@ public class Bank {
                     break;
                 }
             }
-
-
         } while(nonUnique);//keep looping while nonUnique is true ie account number already exists
 
         return accNum;
-
-
     }
 
     //this adds an account for the bank
@@ -88,11 +82,9 @@ public class Bank {
 
     //create new user of bank
     public User addUser(String firstName, String lastName, String pin){
-
         //add new user object to list
         User newUser = new User(firstName, lastName, pin, this);
         this.users.add(newUser);
-
         //create a savings acc
         Account newAccount = new Account("Savings", newUser, this);
         //add to user and bank accs list

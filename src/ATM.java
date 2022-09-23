@@ -13,6 +13,8 @@ public class ATM {
         User User1 = theBank.addUser("Simon", "Love", "1234");
         User User2 = theBank.addUser("Haami", "Nyangibo", "1234");
         User User3 = theBank.addUser("Elon", "Musk", "1234");
+
+        //uncomment for additonal users
 //        User User4 = theBank.addUser("Karl", "Longworth", "1234");
 //        User User5 = theBank.addUser("Jeff", "Bezos", "1234");
 
@@ -22,6 +24,11 @@ public class ATM {
         Account newAccount1 = new Account("Current", User1, theBank);
         User1.addAccount(newAccount1);
         theBank.addAccount(newAccount1);
+        //uncomment to add new account to User1
+//        Account newAccount1a = new Account("Current", User1, theBank);
+//        User1.addAccount(newAccount1a);
+//        theBank.addAccount(newAccount1a);
+
 
         Account newAccount2 = new Account("Current", User2, theBank);
         User2.addAccount(newAccount2);
@@ -30,6 +37,8 @@ public class ATM {
         Account newAccount3 = new Account("Current", User3, theBank);
         User3.addAccount(newAccount3);
         theBank.addAccount(newAccount3);
+
+        //uncomment for new account for 2 extra users above
 
 //        Account newAccount4 = new Account("Current", User4, theBank);
 //        User4.addAccount(newAccount4);
@@ -201,7 +210,7 @@ public class ATM {
         double acctBal;
         String reference;
 
-        //get the account to transfer from
+        //get the account to withdraw from
         do {
             System.out.printf("Enter the number (1-%d) of the account to withdraw from: ", theUser.numAccounts());
             fromAcct = sc.nextInt()-1;//zero-index
@@ -211,7 +220,7 @@ public class ATM {
         } while (fromAcct  < 0 || fromAcct >= theUser.numAccounts());
         acctBal = theUser.getAcctBalance(fromAcct);
 
-        //get the amount to transfer
+        //get the amount to withdraw
         do {
             System.out.printf("Enter the amount to withdraw (max: £%.02f: £", acctBal);
             amount = sc.nextDouble();
@@ -241,7 +250,7 @@ public class ATM {
         double acctBal;
         String reference;
 
-        //get the account to transfer from
+        //get the account to deposit to
         do {
             System.out.printf("Enter the number (1-%d) of the account to deposit in: ", theUser.numAccounts());
             toAcct = sc.nextInt()-1;//zero-index
@@ -251,7 +260,7 @@ public class ATM {
         } while (toAcct  < 0 || toAcct >= theUser.numAccounts());
         acctBal = theUser.getAcctBalance(toAcct);
 
-        //get the amount to transfer
+        //get the amount to deposit
         do {
             System.out.printf("Enter the amount to deposit: £", acctBal);
             amount = sc.nextDouble();
